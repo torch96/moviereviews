@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .carousel-inner{
-  
+  height: 400px;
 }
 .marketing{
   padding-top:50px;
@@ -15,7 +15,10 @@ body {
 .navbar{
   height:56px;
 }
-
+.main{
+  width:100%;
+  padding-top: 60px;
+}
 .searchbar{
   width:300px;
 }

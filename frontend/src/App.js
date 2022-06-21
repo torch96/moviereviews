@@ -63,7 +63,7 @@ function App() {
         
       
 
-      <div className="container mt-3 ">
+      <div className="container  main " >
         <Switch>
 
         <Route exact path={["/", "/home"]} component={Home} />
