@@ -24,25 +24,22 @@ function App() {
     
    <div>
      
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/movies" className="nav-item">
-          <img className="logo" src="" alt=""></img>
-          
-        </a>
-        <a href="/" className="navbar-brand">
+      
+        
+      <header className="fixed-top ">
+      <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div className="container-fluid">
+        <li className="navbar-brand nav-item">
 
-          
-        <Link to={"/home"} className="nav-link"> 
-          Movie Reviews
-        </Link>
-        </a>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/movies"} className="nav-link">
-              Movies
-            </Link>
+        <a className="navbar-brand" href="/home">Movie Reviews</a>
           </li>
-          <li className="nav-item" >
+          <div className="collapse navbar-collapse" id="navbarCollapse">
+            <ul className="navbar-nav me-auto mb-2 mb-md-0">
+              
+            <li className="nav-item">
+           <a className="nav-link" href="/movies">Movies</a>
+          </li>
+              <li className="nav-item" >
             { user ? (
               <a onClick={logout} className="nav-link" style={{cursor:'pointer'}}>
                 Logout {user.name}
@@ -54,10 +51,19 @@ function App() {
             )}
 
           </li>
+            </ul>
+         
+
+          </div>
         </div>
       </nav>
+      </header>
+      
+    <div>    
+        
+      
 
-      <div className="container mt-3">
+      <div className="container mt-3 ">
         <Switch>
 
         <Route exact path={["/", "/home"]} component={Home} />
@@ -89,7 +95,7 @@ function App() {
         <p className="float-end"><a href="#">Back to top</a></p>
         <p>© 2017–2021 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
       </footer>
-    </div>
+    </div></div>
   );
 }
 
