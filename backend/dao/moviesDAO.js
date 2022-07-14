@@ -57,7 +57,7 @@ export default class moviesDAO {
 
   static async getmovieByID(id) {
     try {
-      const pipeline = [
+      /*const pipeline = [
         {
             $match: {
                 _id: new ObjectId(id),
@@ -91,7 +91,7 @@ export default class moviesDAO {
                       text: "$text",
                   },
               },
-          ]
+          ]*/
       return await movies.aggregate(pipeline).next()
     } catch (e) {
       console.error(`Something went wrong in getmovieByID: ${e}`)

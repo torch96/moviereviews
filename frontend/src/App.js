@@ -37,7 +37,8 @@ function App() {
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
               
             <li className="nav-item">
-           <a className="nav-link" href="/movies">Movies</a>
+           <a className="nav-link" href="/movies">Search
+           </a>
           </li>
               <li className="nav-item" >
             { user ? (

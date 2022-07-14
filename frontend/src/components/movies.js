@@ -58,41 +58,7 @@ const Movie = props => {
             Add Review
           </Link>
           <h4> Reviews </h4>
-          <div className="row">
-            {movie.comments.length > 0 ? (
-             movie.comments.map((comment, index) => {
-               return (
-                 <div className="col-lg-4 pb-1" key={index}>
-                   <div className="card">
-                     <div className="card-body">
-                       <p className="card-text">
-                         {comment.text}<br/>
-                         <strong>User: </strong>{comment.title}<br/>
-                         <strong>Date: </strong>{comment.date}
-                       </p>
-                       {props.user && props.user.id === comment.user_id &&
-                          <div className="row">
-                            <a onClick={() => deleteReview(comment._id, index)} className="btn btn-primary col-lg-5 mx-1 mb-1">Delete</a>
-                            <Link to={{
-                              pathname: "/movies/" + props.match.params.id + "/review",
-                              state: {
-                                currentReview: comment
-                              }
-                            }} className="btn btn-primary col-lg-5 mx-1 mb-1">Edit</Link>
-                          </div>                   
-                       }
-                     </div>
-                   </div>
-                 </div>
-               );
-             })
-            ) : (
-            <div className="col-sm-4">
-              <p>No reviews yet.</p>
-            </div>
-            )}
-
-          </div>
+          
 
         </div>
       ) : (

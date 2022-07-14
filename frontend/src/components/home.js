@@ -68,37 +68,20 @@ const Home = props => {
               <ul className="navbar-nav me-auto mb-2 mb-md-0">
               
                 <li className="nav-item">
-                  <a className="nav-link" href="/movies">Movies</a>
+                  <a className="nav-link" href="/movies">Search</a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link ">Login</a>
                 </li>
               </ul>
-          <form>
-            <div className="input-group col-lg-4 searchbar">
-          <input
-            type="text"
-            className="form-control searchbar me-2 "
-            placeholder="Search by Title"
-            value={searchTitle}
-            onChange={onChangeSearchTitle}
-          />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-success "
-              type="button"
-              onClick={findByTitle}
-            >
-              Search
-            </button>
-          </div>
-            </div>
-          </form>
+          
 
           </div>
         </div>
       </nav>
       </header>
+
+
       <div>
     
     
@@ -234,7 +217,8 @@ const Home = props => {
     
       
       
-    </div></div>
+      </div>
+      </div>
     
     
       
