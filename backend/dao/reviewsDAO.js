@@ -2,60 +2,61 @@ import mongodb from "mongodb"
 
 const ObjectId = mongodb.ObjectId
 
-let reviews
+let comments
 
 export default class ReviewsDAO {
   static async injectDB(conn) {
-    if (reviews) {
+    if (comments) {
       return
     }
     try {
-      reviews = await conn.db(process.env.MOVIEREVIEWS_NS).collection("reviews")
+      comments = await conn.db(process.env.MOVIEREVIEWS_NS).collection("comments")
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`)
     }
   }
 
-  static async addReview(movieId, user, review, date) {
+  static async addReview(movieId, user, comment, date) {
     try {
-      const reviewDoc = { name: user.name,
-          user_id: user._id,
+      const commentDoc = { name: user.name,
+          //user_id: user._id,
           date: date,
-          text: review,
+          text: comment,
           movie_id: ObjectId(movieId), }
 
-      return await reviews.insertOne(reviewDoc)
+      return await comments.insertOne(commentDoc)
     } catch (e) {
-      console.error(`Unable to post review: ${e}`)
+      console.error(`Unable to post comment: ${e}`)
       return { error: e }
     }
   }
 
-  static async updateReview(reviewId, userId, text, date) {
+  static async updateReview(commentId, userId, text, date) {
     try {
-      const updateResponse = await reviews.updateOne(
-        { user_id: userId, _id: ObjectId(reviewId)},
+      const updateResponse = await comments.updateOne(
+        {// user_id: userId, 
+          _id: ObjectId(commentId)},
         { $set: { text: text, date: date  } },
       )
 
       return updateResponse
     } catch (e) {
-      console.error(`Unable to update review: ${e}`)
+      console.error(`Unable to update comment: ${e}`)
       return { error: e }
     }
   }
 
-  static async deleteReview(reviewId, userId) {
+  static async deleteReview(commentId, userId) {
 
     try {
-      const deleteResponse = await reviews.deleteOne({
-        _id: ObjectId(reviewId),
-        user_id: userId,
+      const deleteResponse = await comments.deleteOne({
+        _id: ObjectId(commentId),
+        //user_id: userId,
       })
 
       return deleteResponse
     } catch (e) {
-      console.error(`Unable to delete review: ${e}`)
+      console.error(`Unable to delete comment     : ${e}`)
       return { error: e }
     }
   }
