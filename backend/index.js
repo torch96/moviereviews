@@ -2,7 +2,7 @@ import app from "./server.js"
 import mongodb from "mongodb"
 import donenv from "dotenv"
 import moviesDAO from "./dao/moviesDAO.js"
-
+import reviewsDAO from "./dao/reviewsDAO.js"
 donenv.config()
 const MongoClient = mongodb.MongoClient
 const port = process.env.PORT || 8000
@@ -18,6 +18,7 @@ MongoClient.connect(
     process.exit(1)
 }).then(async client =>{ 
     await moviesDAO.injectDB(client)
+    await reviewsDAO.injectDB(client)
     app.listen(port,() => 
     {console.log(`listening on port ${ port }`) 
     })
