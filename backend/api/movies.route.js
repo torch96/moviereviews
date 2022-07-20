@@ -1,6 +1,7 @@
 import express from "express"
 import moviesCtrl from "./movies.controller.js"
 import ReviewsCtrl from "./reviews.controller.js"
+import userCtrl from "./user.controller.js"
 
 const router = express.Router()
 
