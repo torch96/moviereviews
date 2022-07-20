@@ -4,7 +4,7 @@ export default class ReviewsController {
   static async apiPostReview(req, res, next) {
     try {
       const movieId = req.body.movie_id
-      const review = req.body.text
+      const comment = req.body.text
       const userInfo = {
         name: req.body.name,
         _id: req.body.user_id
@@ -14,7 +14,7 @@ export default class ReviewsController {
       const ReviewResponse = await ReviewsDAO.addReview(
         movieId,
         userInfo,
-        review,
+        comment,
         date,
       )
       res.json({ status: "success" })
@@ -25,23 +25,23 @@ export default class ReviewsController {
 
   static async apiUpdateReview(req, res, next) {
     try {
-      const reviewId = req.body.review_id
+      const commentId = req.body._id
       const text = req.body.text
       const date = new Date()
 
-      const reviewResponse = await ReviewsDAO.updateReview(
-        reviewId,
+      const commentResponse = await ReviewsDAO.updateReview(
+        commentId,
         req.body.user_id,
         text,
         date,
       )
 
-      var { error } = reviewResponse
+      var { error } = commentResponse
       if (error) {
         res.status(400).json({ error })
       }
 
-      if (reviewResponse.modifiedCount === 0) {
+      if (commentResponse.modifiedCount === 0) {
         throw new Error(
           "unable to update review - user may not be original poster",
         )
@@ -55,11 +55,11 @@ export default class ReviewsController {
 
   static async apiDeleteReview(req, res, next) {
     try {
-      const reviewId = req.query.id
+      const commentId = req.query.id
       const userId = req.body.user_id
-      console.log(reviewId)
-      const reviewResponse = await ReviewsDAO.deleteReview(
-        reviewId,
+      console.log(commentId)
+      const commentResponse = await ReviewsDAO.deleteReview(
+        commentId,
         userId,
       )
       res.json({ status: "success" })
