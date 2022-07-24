@@ -1,8 +1,8 @@
-import {schema, model} from "mongoose"
+
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
 
-export class User{
+export default class User{
     constructor({name, email, password, preferences = {} } = {}){
         this.name = name
         this.email = email
@@ -25,3 +25,4 @@ export class User{
         )
     }
 }
+

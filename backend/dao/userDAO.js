@@ -2,10 +2,12 @@ import mongodb from "mongodb"
 import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import user from "./models/user.js"
+import user from "../models/user.js"
 const ObjectId = mongodb.ObjectId
 
-let comments
+let users
+let sessions
+
 
 export default class usersDAO {
   static async injectDB(conn) {
@@ -79,6 +81,6 @@ export default class usersDAO {
       return { error: e }
     }
   }
-  
+
   
 }

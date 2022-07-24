@@ -98,7 +98,7 @@ export default class userController {
             res.status(500).json({ error: e.message })
         }
     }
-
+    
     static async apiPostUser(req, res, next) {
         try {
         let user = await userDAO.getUserByEmail(req.body.email)

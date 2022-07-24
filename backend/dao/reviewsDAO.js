@@ -20,6 +20,7 @@ export default class ReviewsDAO {
     try {
       const commentDoc = { name: user.name,
           //user_id: user._id,
+          
           date: date,
           text: comment,
           movie_id: ObjectId(movieId), }
