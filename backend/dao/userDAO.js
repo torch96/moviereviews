@@ -50,6 +50,7 @@ export default class usersDAO {
       return { error: e }
     }
   }
+
   static async login(username, password) {
     try {
       await sessions.updateOne(
@@ -64,6 +65,7 @@ export default class usersDAO {
       return { error: e }
     }
   }
+
   static async logout(email) {
     try {
       await sessions.deleteOne({ user_id: email })
@@ -73,6 +75,7 @@ export default class usersDAO {
       return { error: e }
     }
   }
+  
   static async getSession(email) {
     try {
       return await sessions.findOne({ user_id: email })
