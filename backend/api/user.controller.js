@@ -119,4 +119,41 @@ export default class userController {
         res.status(500).json({ error: e })
         }
     }
+    static async apiDeleteUser(req, res, next) {
+        try {
+            const userJwt = req.get("Authorization").slice("Bearer ".length)
+            const userObj = await User.decoded(userJwt)
+            var { error } = userObj
+            if(error) {
+                res.status(401).json({ error })
+                return
+            }
+            
+
+            const deleteResult = await userDAO.deleteUser(userObj.email)
+            var { error } = deleteResult
+            if(error) {
+                res.status(500).json({ error })
+                return
+            }
+            res.json(deleteResult)
+        } catch (e) {
+            res.status(500).json({ error: e.message })
+        }
+    }    
+    static async apiCreateAdmin(req, res, next) {
+        try {
+            const makeAdmin = await userDAO.makeAdmin(req.body.email)
+            
+            if(makeAdmin.error) {
+                 res.status(400).json({error: makeAdmin.error})
+                    return
+            }
+
+        } catch (e) {
+            res.status(500).json({ error: e.message })
+        }
+    }
+
+
 }
