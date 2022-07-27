@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 
 class loginDataService {
   login(email, password) {
-    const {data:jwt } = http.post("/login", { email, password });
+    const {data:jwt } = http.post("/users", { email, password });
     localStorage.setItem("jwt", jwt);
   }
 
