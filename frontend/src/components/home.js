@@ -71,7 +71,7 @@ const Home = props => {
                   <a className="nav-link" href="/movies">Search</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link ">Login</a>
+                  <a className="nav-link "href="/login">Login</a>
                 </li>
               </ul>
           
