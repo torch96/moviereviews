@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import loginDataService from "../services/loginAuth.js";
+import { Link } from "react-router-dom";
+import "../index.css";
 
 const Login = props => {
 
   const initialUserState = {
     name: "",
-    id: "",
+    email: "",
+    password: "",
   };
 
   const [user, setUser] = useState(initialUserState);
@@ -36,13 +40,13 @@ const Login = props => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="id">ID</label>
+          <label htmlFor="id">Password</label>
           <input
             type="text"
             className="form-control"
             id="id"
             required
-            value={user.id}
+            value={user.password}
             onChange={handleInputChange}
             name="id"
           />
