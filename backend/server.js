@@ -9,10 +9,12 @@ import userRoute from "./api/user.route.js"
 const app = express()
 
 app.use(cors())
-app.use(express.json())
+process.env.NODE_ENV !== "prod" && app.use(morgan("dev"))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use("/api/v1/",movies)
-app.use("/api/v1/user",userRoute)
+app.use("/api/v1/users",userRoute)
 app.use("/status", express.static("build"))
 app.use("/", express.static("build"))
 
