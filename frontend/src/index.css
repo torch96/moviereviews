@@ -6,12 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.carousel-inner{
-  height: 400px;
-}
-.marketing{
-  padding-top:50px;
-}
+
 .navbar{
   height:56px;
 }
@@ -22,9 +17,17 @@ body {
 .searchbar{
   width:300px;
 }
-.card{
+.posterBig{
+  width:50%;
+  height:35%;
+}
+.movieInfo{
+  width:90%;
+  height:35%;
+}
+.movie{
   max-width: 415px;
-  max-height: 750px;
+  height: 750px;
 }
 .poster{
   width: 300px;
