@@ -1,58 +1,65 @@
 import React, { useState } from "react";
 import loginDataService from "../services/loginAuth.js";
-import { Link } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import "../index.css";
 
 const Login = props => {
+  const history = useHistory()
+  const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
-  const initialUserState = {
-    name: "",
-    email: "",
-    password: "",
-  };
+	async function loginUser(event) {
+		event.preventDefault()
+    console.log(email, password);
+		const login = loginDataService.login(
+      email,
+      password)
+      .then(response => {
+        
+        
+        history.push("/movies" );
+        
+      }
+      ).catch(e => {
+        console.log(e);
+      }
+      );
+      
+      
+	}
 
-  const [user, setUser] = useState(initialUserState);
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    setUser({ ...user, [name]: value });
-  };
-
-  const login = () => {
-    props.login(user)
-    props.history.push('/');
-  }
 
   return (
     <div className="submit-form">
       <div>
         <div className="form-group">
-          <label htmlFor="user">Username</label>
+          <label htmlFor="email">Username</label>
           <input
             type="text"
             className="form-control"
-            id="name"
+            id="email"
             required
-            value={user.name}
-            onChange={handleInputChange}
-            name="name"
+            value={email}
+            onChange={e => setEmail(e.target.value.toLowerCase())}
+            name="email"
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="id">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="text"
             className="form-control"
-            id="id"
+            id="password"
             required
-            value={user.password}
-            onChange={handleInputChange}
-            name="id"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            name="password"
           />
         </div>
 
-        <button onClick={login} className="btn btn-success">
+        <button onClick={loginUser} className="btn btn-success">
           Login
         </button>
       </div>
