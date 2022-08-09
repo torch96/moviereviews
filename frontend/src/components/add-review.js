@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MovieDataService from "../services/movie";
 import { Link } from "react-router-dom";
+import loginDataService from "../services/loginAuth";
 
 const AddReview = props => {
   let initialReviewState = ""
@@ -11,28 +12,37 @@ const AddReview = props => {
     editing = true;
     initialReviewState = props.location.state.currentReview.text
   }
-
+  
   const [review, setReview] = useState(initialReviewState);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = event => {
     setReview(event.target.value);
   };
-
+  const user = loginDataService.getUser();
+  const handleKeyPress = (event) => {
+    
+    if(event.key === 'Enter'){
+      saveReview();
+    }
+  }
   const saveReview = () => {
+    
     var data = {
+      jwt: loginDataService.getJwt(),
       text: review,
-      name: props.user.name,
-      user_id: props.user.id,
+      name: user.name,
+      review_id: "",
       movie_id: props.match.params.id
     };
-
+    
     if (editing) {
       data.review_id = props.location.state.currentReview._id
+      
       MovieDataService.updateReview(data)
         .then(response => {
           setSubmitted(true);
-          console.log(response.data);
+          
         })
         .catch(e => {
           console.log(e);
@@ -41,7 +51,7 @@ const AddReview = props => {
       MovieDataService.createReview(data)
         .then(response => {
           setSubmitted(true);
-          console.log(response.data);
+          
         })
         .catch(e => {
           console.log(e);
@@ -52,7 +62,7 @@ const AddReview = props => {
 
   return (
     <div>
-      {props.user ? (
+      {(user.name != "") ? (
       <div className="submit-form">
         {submitted ? (
           <div>
@@ -72,6 +82,7 @@ const AddReview = props => {
                 required
                 value={review}
                 onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
                 name="text"
               />
             </div>
