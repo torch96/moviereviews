@@ -1,5 +1,5 @@
-import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory,Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import AddReview from "./components/add-review";
@@ -7,17 +7,34 @@ import Movie from "./components/movies";
 import MoviesList from "./components/movies-list";
 import Home from "./components/home";
 import Login from "./components/login";
+import SignUp from "./components/register";
+import loginDataService from "./services/loginAuth";
 
 function App() {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState(false);
+  const history = useHistory();
+  useEffect(() => {
+    isLoggedIn()}, []);
 
-  async function login(user = null) {
-    setUser(user);
-  }
+  async function isLoggedIn() {
+    if (loginDataService.getUser() != null) {
+      
+     setUser(true);
+    }else {
+      setUser(null);
+    }
+    
+    
+    }
 
   async function logout() {
+    
+    loginDataService.logout(localStorage.getItem("jwt"));
+    history.push("/  ");
     setUser(null)
   }
+  
+  //window.addEventListener('load', login());
   
 
   return (
@@ -31,7 +48,7 @@ function App() {
         <div className="container-fluid">
         <li className="navbar-brand nav-item">
 
-        <a className="navbar-brand" href="/home">Movie Reviews</a>
+        <a className="navbar-brand" href="/movies">{}Movie Reviews</a>
           </li>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
@@ -40,18 +57,26 @@ function App() {
            <a className="nav-link" href="/movies">Search
            </a>
           </li>
+              
+            { (localStorage.getItem("jwt") != null) ? (
               <li className="nav-item" >
-            { user ? (
               <a onClick={logout} className="nav-link" style={{cursor:'pointer'}}>
-                Logout {user.name}
+                Logout {}
               </a>
-            ) : (            
-            <Link to={"/login"} className="nav-link">
-              Login
-            </Link>
+            </li>
+            ) : (        
+            <><li className="nav-item">
+                      <a className="nav-link" href="/users/login">Login
+                      </a>
+                    </li><li className="nav-item">
+                        <a className="nav-link" href="/users/register">register
+                        </a>
+                      </li></>
             )}
 
-          </li>
+          
+          
+          
             </ul>
          
 
@@ -64,10 +89,10 @@ function App() {
         
       
 
-      <div className="container  main " >
+      <div className="container-lg  main " >
         <Switch>
 
-        <Route exact path={["/", "/home"]} component={Home} />
+        
           <Route exact path={["/", "/movies"]} component={MoviesList} />
           
           <Route 
@@ -83,9 +108,15 @@ function App() {
             )}
           />
           <Route 
-            path="/login"
+            path="/users/login"
             render={(props) => (
-              <Login {...props} login={login} />
+              <Login {...props} login={Login} />
+            )}
+          />
+          <Route 
+            path="/users/register"
+            render={(props) => (
+              <SignUp {...props} SignUp={SignUp} />
             )}
           />
         </Switch>
