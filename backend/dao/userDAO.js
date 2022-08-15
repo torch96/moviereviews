@@ -35,6 +35,7 @@ export default class usersDAO {
 
   static async getUserByEmail(email) {
     try {
+      
       return await users.findOne({ email: email })
     } catch (e) {
       console.error(`Unable to get user by email: ${e}`)
@@ -44,18 +45,19 @@ export default class usersDAO {
 
   static async getUserByUsername(username) {
     try {
-      return await users.findOne({ username: username })
+      return await users.findOne({ name: username })
     } catch (e) {
       console.error(`Unable to get user by username: ${e}`)
       return { error: e }
     }
   }
 
-  static async login(username, password) {
+  static async login(email, jwt) {
     try {
+      
       await sessions.updateOne(
         { user_id: email},
-        { $set: { token: token } },
+        { $set: { jwt: jwt} },
         { upsert: true }  
         )
       return { success: true }
@@ -68,10 +70,12 @@ export default class usersDAO {
 
   static async logout(email) {
     try {
+      
       await sessions.deleteOne({ user_id: email })
       return { success: true }
     } catch (e) {
       console.error(`Unable to logout: ${e}`)
+      console.log(e)
       return { error: e }
     }
   }

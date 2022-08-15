@@ -41,7 +41,7 @@ class loginDataService {
     
     return response;
     
-    //localStorage.setItem("jwt", jwt);
+   
   }
 
  async logout(jwt) {
@@ -79,10 +79,14 @@ class loginDataService {
   getUser() {
     try {
      
-      
-      const decoded = this.parseJwt();
-      
-      return decoded;
+      if(this.getJwt() !== null) {
+        const decoded = this.parseJwt();
+        
+        return decoded;
+      }else {
+        return {email: "", name: ""};
+      }
+
     } catch(e) {
       return null;
     }

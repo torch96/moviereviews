@@ -10,7 +10,7 @@ const MoviesList = props => {
 
   useEffect(() => {
     retrieveMovies();
-    retrieveGenres();
+   // retrieveGenres();
   }, []);
 
   const onChangeSearchTitle = e => {
@@ -20,22 +20,24 @@ const MoviesList = props => {
 
   
 
-  const onChangeSearchGenre = e => {
-    const searchGenres = e.target.value;
-    setSearchGenre(searchGenres);
-    
-  };
+  
 
   const retrieveMovies = () => {
     MovieDataService.getAll()
       .then(response => {
-        console.log(response.data);
+        
         setMovies(response.data.movies);
         
       })
       .catch(e => {
         console.log(e);
       });
+  };
+
+ /* const onChangeSearchGenre = e => {
+    const searchGenres = e.target.value;
+    setSearchGenre(searchGenres);
+    
   };
 
   const retrieveGenres = () => {
@@ -48,7 +50,7 @@ const MoviesList = props => {
       .catch(e => {
         console.log(e);
       });
-  };
+  };*/
 
   const refreshList = () => {
     retrieveMovies();
@@ -78,6 +80,13 @@ const MoviesList = props => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    
+    if(event.key === 'Enter'){
+      findByTitle();
+    }
+  }
+
   return (
     <div>
       <div className="row pb-1">
@@ -88,12 +97,14 @@ const MoviesList = props => {
             placeholder="Search by Title"
             value={searchTitle}
             onChange={onChangeSearchTitle}
+            onKeyPress={handleKeyPress}
           />
           <div className="input-group-append">
             <button
               className="btn btn-outline-secondary"
               type="button"
               onClick={findByTitle}
+              
             >
               Search
             </button>
@@ -102,22 +113,7 @@ const MoviesList = props => {
         
         <div className="input-group col-lg-4">
 
-          <select onChange={onChangeSearchGenre}>
-             {genres.map(genres => {
-               return (
-                 <option value={genres}> {genres.substr(0, 20)} </option>
-               )
-             })}
-          </select>
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={findByGenre}
-            >
-              Search
-            </button>
-          </div>
+      
 
         </div>
       </div>
@@ -142,11 +138,11 @@ const MoviesList = props => {
             cast.push("N/A");
           }
           return (
-            <div className="col-lg-4 pb-1 container-sm">
-              <div className="card">
+            <div className="col-lg-4 pb-1 container-sm ">
+              <div className="card movie border-dark ">
                 <div className="card-body">
                   <h5 className="card-title">{movie.title}</h5>
-                  <img src={movie.poster} className="poster" ></img>
+                  <img src={movie.poster} className="poster mx-auto d-block" ></img>
                   <p className="card-text">
                     <strong>Plot: </strong>{movie.plot}<br/>
                     <strong>Year of release: </strong>{movie.year}<br/>

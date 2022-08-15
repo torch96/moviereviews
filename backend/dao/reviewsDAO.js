@@ -1,4 +1,5 @@
 import mongodb from "mongodb"
+//import {ObjectId} from "bson"
 
 const ObjectId = mongodb.ObjectId
 
@@ -18,13 +19,14 @@ export default class ReviewsDAO {
 
   static async addReview(movieId, user, comment, date) {
     try {
-      const commentDoc = { name: user.name,
-          //user_id: user._id,
+      const commentDoc = { 
+        name: user.name,
+        email: user.email,
           
-          date: date,
-          text: comment,
-          movie_id: ObjectId(movieId), }
-
+        date: date,
+        text: comment,
+        movie_id: ObjectId(movieId), }
+        
       return await comments.insertOne(commentDoc)
     } catch (e) {
       console.error(`Unable to post comment: ${e}`)
@@ -32,14 +34,17 @@ export default class ReviewsDAO {
     }
   }
 
-  static async updateReview(commentId, userId, text, date) {
+  static async updateReview(reviewId, user, text, date) {
+    
+    
     try {
+     // console.log(ObjectId(reviewId))
       const updateResponse = await comments.updateOne(
-        {// user_id: userId, 
-          _id: ObjectId(commentId)},
+         {_id: ObjectId(reviewId), email: user.email},
+          
         { $set: { text: text, date: date  } },
       )
-
+     
       return updateResponse
     } catch (e) {
       console.error(`Unable to update comment: ${e}`)
@@ -47,14 +52,15 @@ export default class ReviewsDAO {
     }
   }
 
-  static async deleteReview(commentId, userId) {
+  static async deleteReview(commentId, email) {
 
     try {
+      
       const deleteResponse = await comments.deleteOne({
-        _id: ObjectId(commentId),
-        //user_id: userId,
+        _id: ObjectId(commentId), email: email,
+        
       })
-
+        
       return deleteResponse
     } catch (e) {
       console.error(`Unable to delete comment     : ${e}`)

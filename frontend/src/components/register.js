@@ -1,20 +1,20 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
+import { Link,useHistory } from "react-router-dom";
 import loginDataService from "../services/loginAuth.js";
 
-const signUp = props => {
-    const [user, setUser] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
+const SignUp = props => {
+    const history = useHistory()
 
-    const handleInputChange = event => {
-        const { name, value } = event.target;
-        setUser({ ...user, [name]: value });
-    }
+	const [name, setName] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
-    const signUp = () => {
-        loginDataService.register(user)
+	async function registerUser(event) {
+		event.preventDefault()
+       const result = loginDataService.register(
+            name,
+            email, 
+            password)
             .then(response => {
                 console.log(response.data);
                 props.history.push("/");
@@ -22,54 +22,57 @@ const signUp = props => {
                 console.log(e);
             }
             );
-    }
+            console.log(result.json());
+		
+	}
 
     return (
         <div className="submit-form">
             <div>
                 <div className="form-group">
-                    <label htmlFor="user">email</label>
+                    <label htmlFor="email">email</label>
                     <input
                         type="text"
                         className="form-control"
                         id="email"
                         required
-                        value={user.name}
-                        onChange={handleInputChange}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value.toLowerCase())}
                         name="email"
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="user">Username</label>
+                    <label htmlFor="name">Username</label>
                     <input
                         type="text"
                         className="form-control"
                         id="name"
                         required
-                        value={user.name}
-                        onChange={handleInputChange}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         name="name"
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="id">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="id"
+                        id="password"
                         required
-                        value={user.password}
-                        onChange={handleInputChange}
-                        name="id"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
                     />
                 </div>
 
-                <button onClick={signUp} className="btn btn-success">
+                <button onClick={registerUser} className="btn btn-success">
                     Sign Up
                 </button>
             </div>
         </div>
     );
 }
+export default SignUp;

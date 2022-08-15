@@ -62,7 +62,7 @@ const AddReview = props => {
 
   return (
     <div>
-      {(user.name != "") ? (
+      {(user.email != "") ? (
       <div className="submit-form">
         {submitted ? (
           <div>
