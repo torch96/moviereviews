@@ -5,7 +5,7 @@ const ObjectId = mongodb.ObjectId
 
 let comments
 
-export default class ReviewsDAO {
+export default class ReviewsRepository {
   static async injectDB(conn) {
     if (comments) {
       return

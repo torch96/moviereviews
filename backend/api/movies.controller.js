@@ -1,4 +1,4 @@
-import moviesDAO from "../dao/moviesDAO.js"
+import moviesRepository from "../Repository/moviesRepository.js"
 
 export default class moviesController {
   static async apiGetmovies(req, res, next) {
@@ -12,7 +12,7 @@ export default class moviesController {
       filters.title = req.query.title
     }
 
-    const { moviesList, totalNumMovies } = await moviesDAO.getmovies({
+    const { moviesList, totalNumMovies } = await moviesRepository.getmovies({
       filters,
       page,
       moviesPerPage,
@@ -30,7 +30,7 @@ export default class moviesController {
   static async apiGetMovieById(req, res, next) {
     try {
       let id = req.params.id || {}
-      let movie = await moviesDAO.getMovieByID(id)
+      let movie = await moviesRepository.getMovieByID(id)
       if (!movie) {
         res.status(404).json({ error: "Not found" })
         return
@@ -44,7 +44,7 @@ export default class moviesController {
 
   static async apiGetMovieGenres(req, res, next) {
     try {
-      let genres = await moviesDAO.getGenres()
+      let genres = await moviesRepository.getGenres()
       res.json(genres)
     } catch (e) {
       console.log(`api, ${e}`)

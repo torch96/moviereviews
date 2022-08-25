@@ -1,8 +1,8 @@
-import ReviewsDAO from "../dao/reviewsDAO.js"
+import ReviewsRepository from "../Repository/reviewsRepository.js"
 import User from "../models/user.js"
 import { ObjectId } from "bson"
-import UserDAO from "../dao/userDAO.js"
-import MoviesDAO from "../dao/moviesDAO.js"
+import UserDAO from "../Repository/userRepository.js"
+import MoviesDAO from "../Repository/moviesRepository.js"
 
 
 export default class ReviewsController {
@@ -19,7 +19,7 @@ export default class ReviewsController {
       
       const date = new Date()
 
-      const ReviewResponse = await ReviewsDAO.addReview(
+      const ReviewResponse = await ReviewsRepository.addReview(
         movieId,
         user,
         review,
@@ -45,7 +45,7 @@ export default class ReviewsController {
      
       const date = new Date()
       
-      const ReviewResponse = await ReviewsDAO.updateReview(
+      const ReviewResponse = await ReviewsRepository.updateReview(
         ObjectId(reviewId),
         user,
         review,
@@ -69,7 +69,7 @@ export default class ReviewsController {
       console.log(user.email)
       const date = new Date()
       console.log("before update")
-      const commentResponse = await ReviewsDAO.deleteReview(
+      const commentResponse = await ReviewsRepository.deleteReview(
         reviewId,
         user.email,
       )

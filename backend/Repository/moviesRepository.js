@@ -2,7 +2,7 @@ import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
 let movies
 
-export default class moviesDAO {
+export default class moviesRepository {
   static async injectDB(conn) {
     if (movies) {
       return
@@ -11,7 +11,7 @@ export default class moviesDAO {
       movies = await conn.db(process.env.MOVIEREVIEWS_NS).collection("movies")
     } catch (e) {
       console.error(
-        `Unable to establish a collection handle in moviesDAO: ${e}`,
+        `Unable to establish a collection handle in moviesRepository: ${e}`,
       )
     }
   }
