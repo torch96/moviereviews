@@ -1,5 +1,5 @@
 
-import userRepository from "../Repository/userRepository.js"
+import userDAO from "../dao/userDAO.js"
 import bcrypt from "bcryptjs"
 import User from "../models/user.js"
 import jwt from "jsonwebtoken"
@@ -30,14 +30,14 @@ export default class userController {
                 email: email,
                 password: await bcrypt.hash(password, 10),
             }
-            const result = await userRepository.registerUser(userData)
+            const result = await userDAO.registerUser(userData)
   
             if(result.error) {
                 
                 return res.status(400).json({error: result.error})
             }
 
-            const newUser = await userRepository.getUserByEmail(userData.email)
+            const newUser = await userDAO.getUserByEmail(userData.email)
             console.log(newUser)
             if(!newUser) {
                 return res.status(400).json({error: "User not found"})
@@ -46,7 +46,7 @@ export default class userController {
             const theUser = new User(newUser)
             console.log(theUser.toJson())
             
-            const loggedInUser =  await userRepository.login(theUser.email, theUser.encoded())
+            const loggedInUser =  await userDAO.login(theUser.email, theUser.encoded())
             if(!loggedInUser) {
                 return res.status(400).json({error: "User not found"})
             }
@@ -73,7 +73,7 @@ export default class userController {
             if(!email || !password) {
                 return res.status(400).json({error: "Missing required fields"})
             }
-            const userData = await userRepository.getUserByEmail(email)
+            const userData = await userDAO.getUserByEmail(email)
             if(!userData) {
                 return res.status(400).json({error: "User not found"})
             }
@@ -82,7 +82,7 @@ export default class userController {
             if(!isValid) {
                 return res.status(400).json({error: "Invalid password"})
             }
-            const loggedInUser =  await userRepository.login(user.email, user.encoded())
+            const loggedInUser =  await userDAO.login(user.email, user.encoded())
             if(!loggedInUser) {
                 return res.status(400).json({error: "User not found"})
             }
@@ -102,7 +102,7 @@ export default class userController {
             console.log(userObj)
             
             
-            const logoutResult = await userRepository.logout(userObj.email)
+            const logoutResult = await userDAO.logout(userObj.email)
             
             
             
@@ -124,7 +124,7 @@ export default class userController {
             }
             
 
-            const deleteResult = await userRepository.deleteUser(userObj.email)
+            const deleteResult = await userDAO.deleteUser(userObj.email)
             var { error } = deleteResult
             if(error) {
                 res.status(500).json({ error })
@@ -137,7 +137,7 @@ export default class userController {
     }    
     static async apiCreateAdmin(req, res, next) {
         try {
-            const makeAdmin = await userRepository.makeAdmin(req.body.email)
+            const makeAdmin = await userDAO.makeAdmin(req.body.email)
             
             if(makeAdmin.error) {
                  res.status(400).json({error: makeAdmin.error})

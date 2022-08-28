@@ -2,7 +2,7 @@ import http from "../http-common";
 const URL = "http://localhost:5000/api/v1";
 class MovieDataService {
   getAll(page = 0) {
-    return http.get(URL + `/movies?page=${page}`);
+    return http.get(`movies?page=${page}`);
   }
 
   get(id) {

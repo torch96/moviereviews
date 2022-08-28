@@ -9,7 +9,7 @@ let users
 let sessions
 
 
-export default class usersRepository {
+export default class usersDAO {
   static async injectDB(conn) {
     if (users && sessions) {
       return
