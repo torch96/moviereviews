@@ -12,7 +12,12 @@ app.use(cors())
 process.env.NODE_ENV !== "prod" && app.use(morgan("dev"))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '../frontend')))
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
+    })
+}
 app.use("/api/v1/",movies)
 app.use("/api/v1/users",userRoute)
 app.use("/status", express.static("build"))
