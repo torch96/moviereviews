@@ -18,13 +18,13 @@
 
     "install-client": "cd frontend && npm install",
 
-    "heroku-postbuild": "npm run install-client && npm run build",
+    "heroku-postbuild": "npm run install && npm run build",
 
     "server": "nodemon backend/server.js",
 
-    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+    "develop": "concurrently --kill-others-on-fail  \"nodemon server --prefix backend\"",
 
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
+    "start": "concurrently --kill-others-on-fail  \" nodemon server --prefix backend\""
 
   }
 
