@@ -18,8 +18,6 @@
 
     "install-client": "cd frontend && npm install",
 
-    "heroku-postbuild": "npm install-client && npm run build",
-
     "server": "nodemon backend/server.js",
 
     "develop": "concurrently --kill-others-on-fail   \"nodemon server --prefix backend\"",
