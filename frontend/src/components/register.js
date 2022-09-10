@@ -17,7 +17,8 @@ const SignUp = props => {
             password)
             .then(response => {
                 console.log(response.data);
-                props.history.push("/");
+                history.push("/");
+                history.go(0);
             }).catch(e => {
                 console.log(e);
             }

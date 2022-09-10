@@ -1,7 +1,6 @@
 //import Axios from "../Axios-common";
 import {useHistory} from "react-router-dom";
-const URL = "http://localhost:5000/api/v1";
-
+const URL = "/api/v1";
 
 class loginDataService {
  async register(name , email, password) {
@@ -55,7 +54,7 @@ class loginDataService {
       
     })
     localStorage.removeItem("jwt");
-    
+    return response;
     }
 
 

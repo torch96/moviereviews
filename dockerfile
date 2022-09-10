@@ -1,20 +1,18 @@
 
+FROM node:16-alpine
+RUN npm install --global nodemon
 
-FROM node:16-alpine AS ui-build
 WORKDIR /usr/src
 COPY frontend/ ./frontend/
 RUN cd frontend && npm install && npm run build
 
-FROM node:16-alpine AS api-build
-WORKDIR /usr/src
+RUN cd ..
+
+
 COPY backend/ ./backend/
-RUN cd backend && npm install && ENVIROMENT=production npm run build
+RUN cd backend && npm install && npm install --global nodemon
 RUN ls
 
-FROM node:16-alpine 
-WORKDIR /root/
-COPY --from=ui-build /usr/src/frontend/build ./frontend/build
-COPY --from=api-build /usr/src/backend/dist .
-
+WORKDIR /usr/src/backend
 EXPOSE 5000
-CMD ["node", "bundle.js"]
+CMD ["npm", "run", "dev"]

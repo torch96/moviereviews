@@ -1,7 +1,15 @@
 import http from "../http-common";
-const URL = "http://localhost:5000/api/v1";
+const URL = "/api/v1";
 class MovieDataService {
-  getAll(page = 0) {
+  async getAll(page = 0) {
+ /* / const x =  await fetch(`/api/v1/movies?page=${page}`,{
+      method: 'GET',
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+   });
+    return await x.json();*/
     return http.get(`movies?page=${page}`);
   }
 

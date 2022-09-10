@@ -7,7 +7,7 @@ import userDAO from "./dao/userDAO.js"
 
 donenv.config()
 const MongoClient = mongodb.MongoClient
-const port = process.env.port || 8000
+const port = process.env.port || 5000
 
 MongoClient.connect(
     process.env.MOVIEREVIEWS_DB_URI,

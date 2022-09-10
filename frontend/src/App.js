@@ -29,8 +29,13 @@ function App() {
 
   async function logout() {
     
-    loginDataService.logout(localStorage.getItem("jwt"));
-    history.push("/  ");
+    loginDataService.logout(localStorage.getItem("jwt"))
+    .then( response =>{
+      history.push("/" );
+      history.go(0);
+    }
+    );
+
     setUser(null)
   }
   
@@ -46,16 +51,16 @@ function App() {
       <header className="fixed-top ">
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div className="container-fluid">
-        <li className="navbar-brand nav-item">
+        <li className="">
 
-        <a className="navbar-brand" href="/movies">{}Movie Reviews</a>
+        <a className="navbar-brand" href="#/movies">{}Movie Reviews</a>
           </li>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
               
             <li className="nav-item">
-           <a className="nav-link" href="/movies">Search
-           </a>
+                <Link to={"/movies"} className="nav-link"> search
+                </Link>
           </li>
               
             { (localStorage.getItem("jwt") != null) ? (
@@ -66,11 +71,11 @@ function App() {
             </li>
             ) : (        
             <><li className="nav-item">
-                      <a className="nav-link" href="/users/login">Login
-                      </a>
+                      <Link className="nav-link" to={"/users/login"}>Login
+                      </Link>
                     </li><li className="nav-item">
-                        <a className="nav-link" href="/users/register">register
-                        </a>
+                        <Link className="nav-link" to={"/users/register"}>register
+                        </Link>
                       </li></>
             )}
 
@@ -90,10 +95,10 @@ function App() {
       
 
       <div className="container-lg  main " >
-        <Switch>
+        <Switch  >
 
         
-          <Route exact path={["/", "/movies"]} component={MoviesList} />
+          <Route exact path={["/","/movies"]} component={MoviesList} />
           
           <Route 
             path="/movies/:id/review"

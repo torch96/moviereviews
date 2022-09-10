@@ -18,7 +18,7 @@ let ENVIROMNT_VARIABLES = {
 
 
 module.exports ={
-    entry: "./server.js",
+    entry: "./server",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "bundle.js",

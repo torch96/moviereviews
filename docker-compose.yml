@@ -1,30 +1,21 @@
 version: '3.4'
 
 services:
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    ports:
-      - 3000:3000
-    container_name: frontend
-    volumes:
-      - ./frontend/src:/usr/app/src
-      - ./frontend/public:/usr/app/public
-    depends_on:
-      - backend
-    stdin_open: true
-    tty: true
-
+ 
   backend:
+    image: "moviereviews-backend"
     build:
-      context: ./backend
-      dockerfile: Dockerfile.dev
+      
+      context: ./
+      dockerfile: Dockerfile
     ports:
       - 5000:5000
+
     container_name: backend
-    volumes:
-      - ./backend/src:/usr/app/src
+ 
+      
+     
+
     depends_on:
       - db
     
@@ -35,8 +26,7 @@ services:
     container_name: mongo-db
     networks:
       - mern-stack-net
-    volumes:
-      - mongo-data:/data/db
+   
 
 networks:
   mern-stack-net:

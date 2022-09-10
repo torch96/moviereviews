@@ -18,6 +18,7 @@
 
     "install-client": "cd frontend && npm install",
 
+
     "server": "nodemon backend/server.js",
 
     "develop": "concurrently --kill-others-on-fail   \"nodemon server --prefix backend\"",

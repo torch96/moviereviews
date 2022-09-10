@@ -18,7 +18,7 @@ const Login = props => {
         
         
         history.push("/movies" );
-        
+        history.go();
       }
       ).catch(e => {
         console.log(e);
