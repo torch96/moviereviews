@@ -33,6 +33,7 @@ const Movie = props => {
       .catch(e => {
         console.log(e,id);
       });
+      document.title = movie.title;
   };
   const getUser = () => {
     loginDataService.getUser()
