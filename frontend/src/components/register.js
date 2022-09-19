@@ -9,6 +9,9 @@ const SignUp = props => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
+    useEffect(() => {
+        document.title = 'Sign Up';
+    });
 	async function registerUser(event) {
 		event.preventDefault()
        const result = loginDataService.register(
