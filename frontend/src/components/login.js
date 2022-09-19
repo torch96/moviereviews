@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import loginDataService from "../services/loginAuth.js";
 import { useHistory,Link } from "react-router-dom";
 import "../index.css";
@@ -7,6 +7,10 @@ const Login = props => {
   const history = useHistory()
   const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    document.title = 'Login';
+    });
 
 	async function loginUser(event) {
 		event.preventDefault()
