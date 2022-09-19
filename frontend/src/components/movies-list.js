@@ -18,8 +18,9 @@ const MoviesList = props => {
     setSearchTitle(searchTitle);
   };
 
-  
-
+  useEffect(() => {
+    document.title = 'Movies';
+  });
   
 
   const retrieveMovies = () => {
