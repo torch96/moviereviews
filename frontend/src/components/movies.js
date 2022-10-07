@@ -69,8 +69,10 @@ const Movie = props => {
         <div>
           <div className="movieInfo card w-50 border-dark mx-auto d-block">
             <h3>{movie.title}</h3>
+            <hr></hr>
             <img src={movie.poster} className="posterBig mx-auto d-block" ></img>
-            <div className="card  card-body border-dark ">
+            <hr></hr>
+            <div className=" card-body border-dark ">
               <p><strong>Plot: </strong>{movie.fullplot}<br/></p>
 
               <p><strong>Directors: </strong>{movie.directors.join(", ")}</p>
