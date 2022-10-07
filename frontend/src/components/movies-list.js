@@ -142,9 +142,12 @@ const MoviesList = props => {
             <div className="col-lg-4 pb-1 container-sm ">
               <div className="card movie border-dark ">
                 <div className="card-body">
-                  <h5 className="card-title">{movie.title}</h5>
+                  <h5 className="card-title content">{movie.title}</h5>
+                  <hr className="mtd border-dark"></hr>
                   <img src={movie.poster} className="poster mx-auto d-block" ></img>
-                  <p className="card-text">
+                 <hr className="mtd"></hr> 
+                 <p className="content card-text">
+                    
                     <strong>Plot: </strong>{movie.plot}<br/>
                     <strong>Year of release: </strong>{movie.year}<br/>
                     <strong>Cast: </strong>{cast}<br/>
@@ -152,7 +155,7 @@ const MoviesList = props => {
                     
                     <strong>IMDB RAITNG: </strong>{address}
                   </p>
-                  <div className="row">
+                  <div className="buttonsRow content"> 
                   <Link to={"/movies/"+movie._id} className="btn btn-primary col-lg-5 mx-1 mb-1">
                     View Reviews
                   </Link>
