@@ -142,7 +142,7 @@ const MoviesList = props => {
             <div className="col-lg-4 pb-1 container-sm ">
               <div className="card movie border-dark ">
                 <div className="card-body">
-                  <h5 className="card-title content">{movie.title}</h5>
+                  <h5 className="card-title content ">{movie.title}</h5>
                   <hr className="mtd border-dark"></hr>
                   <img src={movie.poster} className="poster mx-auto d-block" ></img>
                  <hr className="mtd"></hr> 
